@@ -29,6 +29,8 @@ def main():
     subprocess.run(["git", "add", "."]) # Stage all changes in the current repository.
     subprocess.run(["git", "commit", "-F", msg_path]) # commit using the message stored in the temporary file.
 
+    subprocess.run(["git", "push", "origin", "main"]) # push commit
+
     # Clean up the temporary file to avoid leaving unnecessary file behind.
     os.remove(msg_path)
 
