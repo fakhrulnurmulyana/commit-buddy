@@ -21,6 +21,8 @@ def main():
     # Create temporary file to store commit message.
     with tempfile.NamedTemporaryFile(suffix=".txt", delete=False) as tmp:
         msg_path = tmp.name
+    
+    current_branch = subprocess.run(["git", "branch", "--show-current"], capture_output=True)
 
     # Open Notepad for the user to write a commit message.
     # The script will pause untill the user closes repository.
@@ -29,7 +31,7 @@ def main():
     subprocess.run(["git", "add", "."]) # Stage all changes in the current repository.
     subprocess.run(["git", "commit", "-F", msg_path]) # commit using the message stored in the temporary file.
 
-    subprocess.run(["git", "push", "origin", "main"]) # push commit
+    subprocess.run(["git", "push", "origin", current_branch]) # push commit
 
     # Clean up the temporary file to avoid leaving unnecessary file behind.
     os.remove(msg_path)
